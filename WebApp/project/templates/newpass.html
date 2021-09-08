@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Enter New Password!</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/newpass">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-rounded" type="text" name="userhash" id="username" value="{{ userhash }}" placeholder="YourUserName" readonly="true">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-rounded" type="password" name="newpass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="New Password" required>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-rounded" type="password" name="retype-new" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Re-Type Password" required>
+                </div>
+                <div>
+                    Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Change Password</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

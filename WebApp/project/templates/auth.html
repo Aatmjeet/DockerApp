@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">AUth QR</h3>
+    <div class="box">
+        <div class="notification is-link">
+            Your Google Authenticator Code, save for password reset!
+        </div>
+        <img id="picture" src="data:image/png;base64,{{img}}">
+        <a href="{{ url_for('main.profile') }}">
+            <button type="submit" type="button">Done! Go back to Profile</button>    
+        </a>
+    </div>
+</div>
+{% endblock %}
