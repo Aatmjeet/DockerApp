@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  flask_app:
+    container_name: flask_app
+    restart: always
+    build: ./WebApp
+    ports:
+      - "5000:5000"
+    command: bash /WebApp/start.sh
+  
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - flask_app
