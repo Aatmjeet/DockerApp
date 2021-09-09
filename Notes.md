@@ -1,6 +1,3 @@
-## ip = http://193.161.193.99:34733/
-
-## ip = 20.204.22.41
 ## git clone https://github.com/Aatmjeet/DockerApp
 ## cd DockerApp/WebApp
 ## sudo apt-get isntall build-essesntial
