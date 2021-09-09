@@ -22,6 +22,10 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
+    errs = "!%'--"
+    for char in errs:
+        username = username.replace(char, "")
+
     user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, password):
@@ -43,13 +47,19 @@ def signup_post():
     dob = request.form.get('dob')
     password = request.form.get('password')
     error = None
+    errs = "!%'--"
+    for char in errs:
+        username = username.replace(char, "")
+        firstname = firstname.replace(char, "")
+        lastname = lastname.replace(char, "")
+    
     if not username or not username.strip():
         error = 'Invalid User Name'    
     if not firstname or not firstname.strip():
         error = 'Invalid First Name'   
     if not lastname or not lastname.strip():
         error = 'Invalid Last Name'
-          
+
     if not password or not password.strip():
         error = 'Invalid Password'
     if not dob or not dob.strip():
@@ -82,6 +92,14 @@ def passwordreset():
 @auth.route('/passwordreset', methods=['POST'])
 def passwordreset_post():
     username = request.form.get('username')
+    firstname = request.form.get('firstname')
+    dob = request.form.get('dob')
+    dob_new = dob[2:]
+    bday = datetime.strptime(dob_new, '%y-%m-%d').date()
+    errs = "!%'--"
+    for char in errs:
+        username = username.replace(char, "")
+        firstname = firstname.replace(char, "")
     error = None
     if not username or not username.strip():
         error = 'Invalid User Name'
@@ -90,8 +108,8 @@ def passwordreset_post():
         return render_template('passwordreset.html', error = error, username = username)
     
     user = User.query.filter_by(username=username).first()
-    if not user:
-        flash('Username not found! try again.')
+    if not user or not (firstname == user.firstname) or not (bday == user.dob) :
+        flash('Invalid user data! please try again.')
         return redirect(url_for('auth.passwordreset'))
     return redirect(url_for('auth.checkauth', userhash=user.userhash))
 
