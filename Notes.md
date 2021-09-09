@@ -3,7 +3,7 @@
 ## sudo apt-get isntall build-essesntial
 ## python3 -m venv auth
 ## source auth/bin/activate
-## pip install requirements.txt
+## pip install -r requirements.txt
 ## cd ..
 ## ./run_docker.sh
 
